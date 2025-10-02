@@ -3,6 +3,6 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  resources :sessions, only: [:create]
-  
+  resources :sections, only: [:create]
+
 end
