@@ -1,2 +1,37 @@
-<h1>Actions#new</h1>
-<p>Find me in app/views/actions/new.html.erb</p>
+<h1>アクション</h1>
+
+<p>セクションID: <%= @section.id %></p>
+
+<% if @action.present? && @action.ended_at.nil? %>
+  <!-- アクション進行中：終了ボタンを表示 -->
+  <p>開始時刻: <%= @action.started_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+
+  <%= button_to "アクション終了", section_action_path(@section, @action),
+      method: :patch, data: { turbo: false },
+      class: "btn btn-danger" %>
+
+<% else %>
+  <!-- 未開始：開始ボタンを表示 -->
+  <%= button_to "アクション開始", section_actions_path(@section),
+      method: :post, data: { turbo: false },
+      class: "btn btn-primary" %>
+<% end %>
+
+<% if @section.ended_at.nil? %>
+    <%= button_to "セクション終了", end_section_section_path(@section),
+        method: :patch, data: { turbo: false }, class: "btn btn-warning" %>
+  <% else %>
+    <p>セクション終了時刻: <%= @section.ended_at.strftime("%H:%M:%S") %></p>
+  <% end %>
+
+<hr>
+
+<h2>これまでのアクション一覧</h2>
+<ul>
+  <% @section.actions.each do |a| %>
+    <li>
+      開始: <%= a.started_at&.strftime("%H:%M:%S") %>　
+      終了: <%= a.ended_at&.strftime("%H:%M:%S") || "未終了" %>
+    </li>
+  <% end %>
+</ul>

@@ -9,9 +9,18 @@ class SectionsController < ApplicationController
 
     if @section.save
       # アクション開始画面へ遷移
-      redirect_to new_action_path(section_id: @section.id), notice: "セクションを開始しました！"
+      redirect_to new_section_action_path(@section), notice: "セクションを開始しました！"
     else
-      redirect_to new_action_path, alert: "セクション開始に失敗しました。"
+      redirect_to sections_path, alert: "セクション開始に失敗しました。"
+    end
+  end
+
+  def end_section
+    @section = Section.find(params[:id])
+    if @section.update(ended_at: Time.current)
+      redirect_to root_path, notice: "セクションを終了しました。"
+    else
+      redirect_to new_section_action_path(@section), alert: "セクション終了に失敗しました。"
     end
   end
 end
