@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  resources :sections, only: [:create]
-  get 'sections', to: 'sections#create'
+  resources :sections, only: [:create, :index]
+  get 'sections', to: 'sections#index'
 
 end
