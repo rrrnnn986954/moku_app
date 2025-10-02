@@ -14,4 +14,13 @@ class SectionsController < ApplicationController
       redirect_to sections_path, alert: "セクション開始に失敗しました。"
     end
   end
+
+  def end_section
+    @section = Section.find(params[:id])
+    if @section.update(ended_at: Time.current)
+      redirect_to root_path, notice: "セクションを終了しました。"
+    else
+      redirect_to new_section_action_path(@section), alert: "セクション終了に失敗しました。"
+    end
+  end
 end

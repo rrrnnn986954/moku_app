@@ -17,6 +17,13 @@
       class: "btn btn-primary" %>
 <% end %>
 
+<% if @section.ended_at.nil? %>
+    <%= button_to "セクション終了", end_section_section_path(@section),
+        method: :patch, data: { turbo: false }, class: "btn btn-warning" %>
+  <% else %>
+    <p>セクション終了時刻: <%= @section.ended_at.strftime("%H:%M:%S") %></p>
+  <% end %>
+
 <hr>
 
 <h2>これまでのアクション一覧</h2>
