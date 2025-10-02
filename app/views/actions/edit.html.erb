@@ -1,7 +1,7 @@
 <h1>カテゴリー選択</h1>
 
-<p>開始時刻: <%= @action.started_at.strftime("%H:%M:%S") %></p>
-<p>終了時刻: <%= @action.ended_at.strftime("%H:%M:%S") %></p>
+<p>開始時刻: <%= @action.started_at.in_time_zone("Tokyo").strftime("%H:%M:%S") %></p>
+<p>終了時刻: <%= @action.ended_at&.in_time_zone("Tokyo")&.strftime("%H:%M:%S") || "未終了" %></p>
 
 <%= form_with(model: [@section, @action], url: update_category_section_action_path(@section, @action), method: :patch, local: true, scope: :action_record) do |f| %>
   <div class="field">
