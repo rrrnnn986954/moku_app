@@ -1,5 +1,9 @@
 <h1>セクション</h1>
 
-<%= button_to "セクション開始", sections_path, method: :post, data: { turbo: false } %>
+<div style="display: flex; gap: 10px;">
+  <!-- セクション開始ボタン -->
+  <%= button_to "セクション開始", sections_path, method: :post, class: "btn btn-primary" %>
 
-
+  <!-- トップページに戻るボタン -->
+  <%= link_to "戻る", root_path, class: "btn btn-secondary" %>
+</div>
