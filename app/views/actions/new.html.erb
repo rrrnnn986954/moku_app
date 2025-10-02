@@ -33,6 +33,7 @@
     <li>
       開始: <%= a.started_at&.in_time_zone("Tokyo")&.strftime("%H:%M:%S") %>
       終了: <%= a.ended_at&.in_time_zone("Tokyo")&.strftime("%H:%M:%S") || "未終了" %>
+      カテゴリー: <%= japanese_category(a.category) || "未設定" %>
     </li>
   <% end %>
 </ul>
