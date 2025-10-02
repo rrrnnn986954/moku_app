@@ -15,6 +15,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_02_135114) do
     t.bigint "section_id", null: false
     t.datetime "started_at"
     t.datetime "ended_at"
+    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_actions_on_section_id"
