@@ -6,5 +6,8 @@ Rails.application.routes.draw do
 
   resources :sections, only: [:create, :index]
   resources :actions, only: [:new]
+  resources :sections, only: [:index, :create] do
+    resources :actions, only: [:new, :create, :update]
+  end
 
 end
