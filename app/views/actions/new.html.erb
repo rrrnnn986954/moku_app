@@ -4,7 +4,7 @@
 
 <% if @action.present? && @action.ended_at.nil? %>
   <!-- アクション進行中：終了ボタンを表示 -->
-  <p>アクション開始時刻: <%= @action.started_at.in_time_zone("Tokyo").strftime("%Y-%m-%d %H:%M:%S") %></p>
+  <p>アクション開始時刻: <%= @action.started_at.in_time_zone("Tokyo").strftime("%Y-%m-%d %H:%M") %></p>
 
   <%= button_to "アクション終了", section_action_path(@section, @action),
       method: :patch, data: { turbo: false },
@@ -23,7 +23,7 @@
     <%= button_to "セクション終了", end_section_section_path(@section),
         method: :patch, data: { turbo: false }, class: "btn btn-warning" %>
   <% else %>
-    <p>セクション終了時刻: <%= @section.ended_at.in_time_zone("Tokyo").strftime("%H:%M:%S") %></p>
+    <p>セクション終了時刻: <%= @section.ended_at.in_time_zone("Tokyo").strftime("%H:%M") %></p>
   <% end %>
 <% end %>
 
@@ -34,8 +34,8 @@
 <ul>
   <% @section.actions.each do |a| %>
     <li>
-      開始: <%= a.started_at&.in_time_zone("Tokyo")&.strftime("%H:%M:%S") %>
-      終了: <%= a.ended_at&.in_time_zone("Tokyo")&.strftime("%H:%M:%S") || "未終了" %>
+      開始: <%= a.started_at&.in_time_zone("Tokyo")&.strftime("%H:%M") %>
+      終了: <%= a.ended_at&.in_time_zone("Tokyo")&.strftime("%H:%M") || "未終了" %>
       カテゴリー: <%= japanese_category(a.category) || "未設定" %>
     </li>
   <% end %>
