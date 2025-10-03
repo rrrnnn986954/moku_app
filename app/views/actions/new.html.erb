@@ -17,12 +17,15 @@
       class: "btn btn-primary" %>
 <% end %>
 
-<% if @section.ended_at.nil? %>
+<!-- ✅ アクション進行中ではない場合のみセクション終了ボタンを表示 -->
+<% unless @action.present? && @action.ended_at.nil? %>
+  <% if @section.ended_at.nil? %>
     <%= button_to "セクション終了", end_section_section_path(@section),
         method: :patch, data: { turbo: false }, class: "btn btn-warning" %>
   <% else %>
-    <p>セクション終了時刻: <%= @section.ended_at.strftime("%H:%M:%S") %></p>
+    <p>セクション終了時刻: <%= @section.ended_at.in_time_zone("Tokyo").strftime("%H:%M:%S") %></p>
   <% end %>
+<% end %>
 
 <hr>
 
