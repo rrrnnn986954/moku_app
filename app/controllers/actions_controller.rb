@@ -51,6 +51,6 @@ class ActionsController < ApplicationController
   end
 
   def action_params
-  params.require(:action_record).permit(:category)
+  params.require(:action_record).permit(:category, :memo)
   end
 end

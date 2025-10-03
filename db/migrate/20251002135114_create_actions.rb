@@ -5,6 +5,7 @@ class CreateActions < ActiveRecord::Migration[7.1]
       t.datetime :started_at
       t.datetime :ended_at
       t.string :category
+      t.text :memo
 
       t.timestamps
     end
