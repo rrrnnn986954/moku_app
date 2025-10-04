@@ -2,7 +2,16 @@
 
 <div style="display: flex; gap: 10px;">
   <!-- セクション開始ボタン -->
-  <%= button_to "セクション開始", sections_path, method: :post, class: "btn btn-primary" %>
+  <h2>セクション名を入力してください</h2>
+  <%= form_with model: @section, url: sections_path, local: true do |f| %>
+    <div>
+      <%= f.label :name, "セクション名：" %>
+      <%= f.text_field :name, placeholder: "例：朝の準備", class: "form-control" %>
+    </div>
+
+    <%= f.submit "セクション開始", class: "btn btn-primary mt-2" %>
+  <% end %>
+
 
   <!-- トップページに戻るボタン -->
   <%= link_to "戻る", root_path, class: "btn btn-secondary" %>

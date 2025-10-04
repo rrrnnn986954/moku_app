@@ -1,11 +1,13 @@
 class SectionsController < ApplicationController
   before_action :authenticate_user!
+
   def index
     @sections = current_user.sections
+    @section = Section.new # フォーム用（newではなくindexでフォーム表示するため）
   end
 
   def create
-    @section = current_user.sections.build(started_at: Time.current)
+    @section = current_user.sections.build(section_params.merge(started_at: Time.current))
 
     if @section.save
       # アクション開始画面へ遷移
@@ -22,5 +24,11 @@ class SectionsController < ApplicationController
     else
       redirect_to new_section_action_path(@section), alert: "セクション終了に失敗しました。"
     end
+  end
+
+  private
+
+  def section_params
+    params.require(:section).permit(:name)
   end
 end

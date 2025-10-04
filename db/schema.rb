@@ -26,6 +26,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_02_135114) do
     t.bigint "user_id", null: false
     t.datetime "started_at"
     t.datetime "ended_at"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_sections_on_user_id"

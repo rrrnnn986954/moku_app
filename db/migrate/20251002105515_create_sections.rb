@@ -4,6 +4,7 @@ class CreateSections < ActiveRecord::Migration[7.1]
       t.references :user, null: false, foreign_key: true
       t.datetime :started_at
       t.datetime :ended_at
+      t.string :name
 
       t.timestamps
     end
