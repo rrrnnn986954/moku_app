@@ -1,6 +1,6 @@
 <h1>アクション</h1>
 
-<p>セクションID: <%= @section.id %></p>
+<p>セクションID: <%= @section.name %></p>
 
 <% if @action.present? && @action.ended_at.nil? %>
   <!-- アクション進行中：終了ボタンを表示 -->

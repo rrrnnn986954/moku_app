@@ -1,4 +1,4 @@
 class HomeController < ApplicationController
-  def index  # indexアクションを定義した
+  def index
   end
 end
