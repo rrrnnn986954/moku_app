@@ -12,5 +12,6 @@ Rails.application.routes.draw do
       patch :update_category, on: :member
     end
   end
+  get 'feedbacks', to: 'feedbacks#index'
 end
 
