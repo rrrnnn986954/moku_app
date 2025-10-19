@@ -47,6 +47,11 @@ class SectionsController < ApplicationController
     @category_data = @actions.group_by(&:category).transform_values do |acts|
       acts.sum { |a| a.duration_minutes }
     end
+    
+      # 👇ここを追加してログに出力
+    puts "=== @category_data ==="
+    puts @category_data.inspect
+    puts "======================"
   end
 
   private
