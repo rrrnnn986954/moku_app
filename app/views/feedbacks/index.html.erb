@@ -5,7 +5,7 @@
   <ul>
     <% @sections.each do |section| %>
       <li>
-        <%# link_to section.name.presence || "セクション#{section.id}", chart_section_path(section), class: "btn btn-link" %>
+        <%= link_to section.name.presence || "セクション#{section.id}", chart_section_path(section), class: "btn btn-link" %>
       </li>
     <% end %>
   </ul>
