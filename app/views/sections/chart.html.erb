@@ -1,1 +1,75 @@
 <h1>chart.html.erb</h1>
+<h1><%= @section.name.presence || "セクション#{@section.id}" %> のグラフ</h1>
+
+<!-- 円グラフ（カテゴリー別合計時間） -->
+<h2>カテゴリー別 合計時間（分）</h2>
+<canvas id="categoryPieChart" width="400" height="200"></canvas>
+
+<!-- 棒グラフ（時系列推移） -->
+<h2>行動の時間推移</h2>
+<canvas id="timelineBarChart" width="400" height="200"></canvas>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // === 円グラフ ===
+    const categoryLabels = <%= raw @category_data.keys.to_json %>;
+    const categoryValues = <%= raw @category_data.values.to_json %>;
+
+    const ctxPie = document.getElementById("categoryPieChart");
+    new Chart(ctxPie, {
+      type: "pie",
+      data: {
+        labels: categoryLabels,
+        datasets: [{
+          data: categoryValues,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)'
+          ]
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { position: 'bottom' },
+          title: { display: true, text: "カテゴリー別 合計時間（分）" }
+        }
+      }
+    });
+
+    // === 棒グラフ ===
+    const timelineLabels = <%= raw @actions.map { |a| a.started_at.strftime("%H:%M") }.to_json %>;
+    const timelineValues = <%= raw @actions.map(&:duration_minutes).to_json %>;
+    const timelineCategories = <%= raw @actions.map(&:category).to_json %>;
+
+    const ctxBar = document.getElementById("timelineBarChart");
+    new Chart(ctxBar, {
+      type: "bar",
+      data: {
+        labels: timelineLabels,
+        datasets: [{
+          label: "行動時間（分）",
+          data: timelineValues,
+          backgroundColor: 'rgba(54, 162, 235, 0.6)'
+        }]
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true, title: { display: true, text: "時間（分）" } },
+          x: { title: { display: true, text: "開始時刻" } }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: (context) => `${timelineCategories[context.dataIndex]}: ${context.parsed.y}分`
+            }
+          }
+        }
+      }
+    });
+  });
+</script>
+
+<%= link_to "フィードバックに戻る", feedbacks_path, class: "btn btn-secondary" %>
