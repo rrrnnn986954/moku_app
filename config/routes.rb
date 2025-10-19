@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # セクションとアクションのルーティング
   resources :sections, only: [:index, :create] do
     member do
+      get :chart
       patch :end_section
     end
     
