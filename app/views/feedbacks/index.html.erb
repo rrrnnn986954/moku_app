@@ -1,0 +1,16 @@
+<h1>フィードバック</h1>
+<p>グラフを見たいセクションを選択してください</p>
+
+<% if @sections.present? %>
+  <ul>
+    <% @sections.each do |section| %>
+      <li>
+        <%= link_to section.name.presence || "セクション#{section.id}", chart_section_path(section), class: "btn btn-link" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>まだセクションはありません。</p>
+<% end %>
+
+<%= link_to "ホームに戻る", root_path, class: "btn btn-secondary" %>

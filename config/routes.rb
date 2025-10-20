@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # セクションとアクションのルーティング
   resources :sections, only: [:index, :create] do
     member do
+      get :chart
       patch :end_section
     end
     
@@ -12,5 +13,6 @@ Rails.application.routes.draw do
       patch :update_category, on: :member
     end
   end
+  get 'feedbacks', to: 'feedbacks#index'
 end
 

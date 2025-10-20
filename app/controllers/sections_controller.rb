@@ -26,6 +26,34 @@ class SectionsController < ApplicationController
     end
   end
 
+  def chart
+    @section = current_user.sections.find_by(id: params[:id])
+    if @section.nil?
+      redirect_to feedbacks_path, alert: "セクションが見つかりませんでした。"
+      return
+    end
+
+    # 終了しているアクションのみ取得
+    @actions = @section.actions.where.not(ended_at: nil)
+
+    # 各アクションの duration_minutes を計算
+    @actions = @actions.map do |action|
+      duration_minutes = ((action.ended_at - action.started_at) / 60).round
+      action.define_singleton_method(:duration_minutes) { duration_minutes }
+      action
+    end
+
+    # カテゴリ別の合計時間
+    @category_data = @actions.group_by(&:category).transform_values do |acts|
+      acts.sum { |a| a.duration_minutes }
+    end
+    
+      # 👇ここを追加してログに出力
+    puts "=== @category_data ==="
+    puts @category_data.inspect
+    puts "======================"
+  end
+
   private
 
   def section_params
